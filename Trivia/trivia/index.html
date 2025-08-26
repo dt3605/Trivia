@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trivia!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script>
+        // Função para verificar respostas múltipla escolha
+        function checkMultiChoice(event) {
+            const button = event.target;
+            if (button.dataset.correct === "true") {
+                button.style.backgroundColor = "green";
+                button.parentElement.querySelector('.feedback').textContent = "Correct!";
+            } else {
+                button.style.backgroundColor = "red";
+                button.parentElement.querySelector('.feedback').textContent = "Incorrect";
+            }
+        }
+
+        // Função para verificar respostas abertas
+        function checkFreeResponse(event) {
+            const button = event.target;
+            const input = button.parentElement.querySelector('input');
+            const correctAnswer = input.dataset.correct;
+            if (input.value.trim().toLowerCase() === correctAnswer.toLowerCase()) {
+                input.style.backgroundColor = "green";
+                button.parentElement.querySelector('.feedback').textContent = "Correct!";
+            } else {
+                input.style.backgroundColor = "red";
+                button.parentElement.querySelector('.feedback').textContent = "Incorrect";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Trivia!</h1>
+    </div>
+
+    <div class="container">
+        <!-- Parte 1: Múltipla escolha -->
+        <div class="section">
+            <h2>Part 1: Multiple Choice</h2>
+            <hr>
+            <h3>Which planet is known as the Red Planet?</h3>
+            <button onclick="checkMultiChoice(event)" data-correct="false">Venus</button>
+            <button onclick="checkMultiChoice(event)" data-correct="true">Mars</button>
+            <button onclick="checkMultiChoice(event)" data-correct="false">Jupiter</button>
+            <button onclick="checkMultiChoice(event)" data-correct="false">Saturn</button>
+            <p class="feedback"></p>
+        </div>
+
+        <!-- Parte 2: Resposta aberta -->
+        <div class="section">
+            <h2>Part 2: Free Response</h2>
+            <hr>
+            <h3>What is the capital city of Japan?</h3>
+            <input type="text" data-correct="Tokyo">
+            <button onclick="checkFreeResponse(event)">Check Answer</button>
+            <p class="feedback"></p>
+        </div>
+    </div>
+</body>
+</html>
